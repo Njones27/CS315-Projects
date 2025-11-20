@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -88,9 +90,9 @@ private:
                 cout << ' ';
             }
 
-            
+            cout << node->second;
+
             if (node->right) {
-                cout << node->second;
                 cout << ' ';
                 cout << '(';
                 inorder(node->right);
@@ -118,16 +120,18 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n;
-    if (!(cin >> n)) {
-        return 0;
-    }
-
     TernaryTree tree;
-    for (int i = 0; i < n; ++i) {
-        int value;
-        if (!(cin >> value)) {
+    string line;
+    // Read integers line by line until the user submits a blank line (pressing enter) or EOF (ctrl + d)
+    while (getline(cin, line)) {
+        if (line.empty()) {
             break;
+        }
+
+        istringstream iss(line);
+        int value;
+        if (!(iss >> value)) {
+            continue;  // ignore non-integer lines
         }
         tree.insert(value);
     }
